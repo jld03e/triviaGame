@@ -6,6 +6,7 @@ $(document).ready(function() {
 
    function initialize () {
     $("#game").append(startBtn);
+    $("#startBtn").remove();
 }
     
     $("#startBtn").click(function() {
