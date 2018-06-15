@@ -12,58 +12,48 @@ var unanswered = 0;
 
 var question = 0;
 
-var counter = 45;
+var counter = 60;
 
-var wuTangClanQuestions = {
+var wuTangClanQuestions = [{
 
-        query1: "What is the name of the first track in the Wu-Tang Clan's debut album, 'Enter the Wu-Tang(36 Chambers)'?",
-        query2: "Which one of the rappers listed below is not a member of the Wu?", 
-        query3: "How many members does the Wu-Tang Clan consist of?",
-        query4: "What does CREAM stand for?",
-    choicesAnswers: {
-        choices1: [" a. CREAM " , " b. Bring Da Ruckus " , " c. Clan in Da Front " , " d. None of the Above "],
-        choices2: [" a. RZA " , " b. GZA " , " c. Nas " , " d. U-God "],
-        choices3: [" a. 8 " , " b. 7 " , " c. 5 " , " d. 9 "],
-        choices4: [" a. CashRulesEverythingAroundMaryland " ,  " b. CrazyRealEldersAlwaysMean " , " c. CashRulesEverythingAroundMe " , " d. None of the Above "],
-    },
-    correctAnswers:[{
-        answer1: 1,
-        answer2: 2,
-        answer3: 3,
-        answer4: 2,
-    }]
-};
+        question: "What is the name of the first track in the Wu-Tang Clan's debut album, 'Enter the Wu-Tang(36 Chambers)'?",
+        answers: [" a. CREAM " , " b. Bring Da Ruckus " , " c. Clan in Da Front " , " d. None of the Above "],
+        correctAnswer: 1,
+},{
+        question: "Which one of the rappers listed below is not a member of the Wu?", 
+        answers: [" a. CREAM " , " b. Bring Da Ruckus " , " c. Clan in Da Front " , " d. None of the Above "],
+        correctAnswer: 2,
+},{
+        question: "How many members does the Wu-Tang Clan consist of?",
+        answers: [" a. RZA " , " b. GZA " , " c. Nas " , " d. U-God "],
+        correctAnswer: 3,
+},{
+        question: "What does CREAM stand for?",
+        answers: [" a. CashRulesEverythingAroundMaryland " ,  " b. CrazyRealEldersAlwaysMean " , " c. CashRulesEverythingAroundMe " , " d. None of the Above "],
+        correctAnswer: 2,
+    },];
 
 
+$("#timer-line").hide();
 
 function theGame () {
 $("#startBtn").remove();
+$("#submit").append("<button type='button' id='submitBtn'>Submit</button>");
+$("#timer-line").show();
+$("#timer-line").html(counter + " Seconds ");
+$("#submit").show();
 }
 
-function btnPrompts () {
- $("#submit").append("<button type='button' id='submitBtn'>Submit</button>");
- for (var i = 0; i <wuTangClanQuestions.choicesAnswers.choices1; i++) {
-     var a = $("<button>");
-     a.addClass("choices1");
-     a.attr("data-name", wuTangClanQuestions.choicesAnswers.choices1[i]);
-     a.text(wuTangClanQuestions.choicesAnswers.choices1[i]);
-     $("#choices1").append(a);
-     console.log(btnPrompts);
- }
+function prompts () {
+    $("#")
 };
+
+
 
 
 $("#startBtn").click(function() {
     theGame();
-    btnPrompts ();
-        $("#question1").html("#1: " + wuTangClanQuestions.query1);
-        $("#question2").html("#2: " + wuTangClanQuestions.query2);
-        $("#question3").html("#3: " + wuTangClanQuestions.query3);
-        $("#question4").html("#4: " + wuTangClanQuestions.query4);
-        
-        $("#choices2").html(wuTangClanQuestions.choicesAnswers.choices2);
-        $("#choices3").html(wuTangClanQuestions.choicesAnswers.choices3);
-        $("#choices4").html(wuTangClanQuestions.choicesAnswers.choices4);
+    prompts ();
     });
 
     })
