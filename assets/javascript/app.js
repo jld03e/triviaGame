@@ -2,17 +2,13 @@
 
 $(document).ready(function() {
 
-var userGuess;
+var choices
 
-var images;
-
-var correctAnswer = 0;
+var correctAnswerTally = 0;
 
 var incorrectAnswer = 0;
 
 var unanswered = 0;
-
-var question = 0;
 
 var counter = 60;
 
@@ -21,19 +17,19 @@ var intervalId;
 var questions = [{
     question: "What is the name of the Wu-Tang Clan's debut album?",
     answers: [" CREAM " , " Enter The Wu-Tang" , " Clan in Da Front " , " None of the Above "],
-    correctAnswer: 1,
+    correctAnswer: " Enter The Wu-Tang "
 } , {
     question: "Which one of the rappers listed below is not a member of the Wu?", 
-    answers: [" CREAM " , " Bring Da Ruckus " , " Clan in Da Front " , " None of the Above "],
-    correctAnswer: 2,
+    answers: [" Nas " , " Raekwon " , " GhostFace Killah " , " None of the Above "],
+    correctAnswer: " Nas "
 },{
     question: "How many members does the Wu-Tang Clan consist of?",
-    answers: [" RZA " , " GZA " , " Nas " , " U-God "],
-    correctAnswer: 3,
+    answers: [" 8 " , " 9 " , " 10 " , " 5 "],
+    correctAnswer: " 9 "
 },{
     question: "What does CREAM stand for?",
     answers: [" CashRulesEverythingAroundMaryland " ,  " CrazyRealEldersAlwaysMean " , " CashRulesEverythingAroundMe " , " None of the Above "],
-    correctAnswer: 2,
+    correctAnswer: " CashRulesEverythingAroundMe "
 }
 ];
 
@@ -41,13 +37,12 @@ var questions = [{
 //timer could will be updated once questions and answers have been made dynamic***
 //through JS. i've postponed editing the timers any further till i can establish***
 //right and wrong answers and count those results.***
-$("#timer-line").hide();
 
+$("#timer-line").hide();
 function run() {
     clearInterval(intervalId);
     intervalId = setInterval(decrement, 1000);
 }
-
 //runs down the timer to the final second.***
 //equipped with an alert, in the interim, as i resolve the code for the questions***
 //and answers.***
@@ -60,17 +55,12 @@ function decrement () {
         alert("Time Up.");
     };
 };
-function stop() {
-    clearInterval(intervalId);
-}
-
 
 // defines theGame function to be when we remove the start button, append the submit button, and show it.
 function theGame () {
 $("#startBtn").remove();
 $("#submit").append("<button type='button' id='submitBtn'>Submit</button>");
 run();
-$("#submit").show();
 }
 
 
@@ -81,12 +71,11 @@ $("#submit").show();
 //assignment has been resolved.***
 function prompts () {
     for (var i=0; i< questions.length; i++) {
-    $("#questions_div").append(questions[i].question);
-    }
-    for (var j=0; j<questions[i].answers.length; j++) {
-    $("#choices_div").append(questions[i].answers[j]);
-    };
-
+    $("#form").append("<div id = 'question" + i + "'>" + questions[i].question + "<br></div><br><br>");
+        for (var j=0; j<questions[i].answers.length; j++) {
+        $("#question" + i).append("<input name = 'question" + i + "answer' id ='answer" + j + "'type='radio' value='" + j + "'>" + questions[i].answers[j] + "</input><br>");
+    }};
+$("#submit").show();
 };
 
 // portion of code where the on click function for start, runs the previously created functions.
@@ -94,10 +83,59 @@ function prompts () {
     theGame();
     prompts();
     });
+//need to create a function that tracks the answers the user is providing,
+//and compares them against the correct answer in the variable.
+    function done() {
+        $.each($("input[name = 'question0answer']:checked"), function () {
+            if($(this).val() === questions[0].correctAnswer) {
+                console.log(this);
+                correctAnswerTally++;
+            } else {
+                incorrectAnswer++;
+            }
+        });
+        $.each($("input[name = 'question1answer']:checked"), function () {
+            if($(this).val() === questions[1].correctAnswer) {
+                console.log(this);
+                correctAnswerTally++;
+            } else {
+                incorrectAnswer++;
+            }
+        });
+        $.each($("input[name = 'question2answer']:checked"), function () {
+            if($(this).val() === questions[2].correctAnswer) {
+                console.log(this);
+                correctAnswerTally++;
+            } else {
+                incorrectAnswer++;
+            }
+        });
+        $.each($("input[name = 'question3answer']:checked"), function () {
+            if($(this).val() === questions[3].correctAnswer) {
+                console.log(this);
+                correctAnswerTally++;
+            } else {
+                incorrectAnswer++;
+            }
+        });
+    }
+    function results() {
+        clearInterval(intervalId);
 
+
+        $("#form").remove();
+        $("#question").remove();
+        $(".correct").append("<h3> You got this many right: " + correctAnswerTally + "<h3>");
+        $(".incorrect").append("<h3> You got this many wrong, dummy: " + incorrectAnswer + "<h3>");
+        $(".unanswered").append("<h3> You got this many fucked up: " + unanswered + "<h3>");
+    }
+
+    $("#submit").click(function() {
+        done();
+        results();
+        $("#submit").remove();
+
+        });
+    
     })
 //i honestly don't know what else to write or include in the comments. i'll accept***
-//this grade as the code is beyond broken, and i acknowledge that. i'll revisit***
-//this assignment and slack you once it's been updated and functioning***
-//properly. i didnt bother to do any CSS, as i was trying to make the***
-//actual game work.***
